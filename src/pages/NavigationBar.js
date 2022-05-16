@@ -1,16 +1,12 @@
 import KuvaLogo from "../media/KuvaLogo.png";
+import { BrowserRouter as Router, Link } from "react-router-dom"
+import NavLinks from './NavLinks'
 
 function NavigationBar() {
   return (
-    <div
-      style={{
-        height: "100%",
-        width: "15%",
-        backgroundColor: "#222222",
-      }}
-    >
-      <img style={{ width: "95%" }} src={KuvaLogo} />
-      <span style={{ marginTop: "30%", color: "white" }}> Home </span>
+    <div className="nav-container">
+      <img className="logo" src={KuvaLogo} />
+      <NavLinks />
     </div>
   );
 }
