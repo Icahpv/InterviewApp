@@ -70,14 +70,15 @@ function App() {
           </div>
           {images.length > 0 && <img alt={images[currentImageIndex].blobContainer} src={images[currentImageIndex].jpg} />}
           {images[currentImageIndex]?.createdOn && (
-            <div className="text-bar"> Scan Timestamp: {images[currentImageIndex].createdOn} </div>
+            <div> Scan Timestamp: {images[currentImageIndex].createdOn} </div>
           )}
           {/* TODO: Finish adding image metadata!  */}
-        <div> Image Metadata: INCOMPLETE </div>
+          <div>
+        <div> Image Metadata: {images[currentImageIndex]?.id} </div>
           <div> Confidence Levels: {images[currentImageIndex]?.overallConf} </div>
           <div> Number of Detections: {images[currentImageIndex]?.detectionsList.length} </div>
           <div> Noise Floor Metric: {images[currentImageIndex]?.noiseFloorMetric} </div>
-        </div>
+        </div></div>
         {/* TODO: This button also does nothing  */}
         <button 
           type="button"
@@ -89,5 +90,6 @@ function App() {
   );
             
 }
+
 
 export default App;
