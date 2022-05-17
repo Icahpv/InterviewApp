@@ -52,6 +52,18 @@
   color: #aa4326;
 }
 
+button {
+  margin: 1rem;
+  padding: .5rem;
+}
+
+.text-bar {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

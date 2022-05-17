@@ -1,11 +1,13 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavigationBar from "./pages/NavigationBar";
+
 
 function App() {
   const axios = require("axios");
   const baseURL = "http://localhost:7071";
   const [images, setImages] = useState([]);
+  const [infos, infoList] = useState([])
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   //TODO: API functions (more to be added) should be in their own file!
@@ -14,6 +16,7 @@ function App() {
       .get(`${baseURL}/events`)
       .then(function (response) {
         setImages(response.data.scanResults);
+        infoList(response.data)
         console.log(response);
       })
       .catch(function (error) {
@@ -25,6 +28,8 @@ function App() {
   useEffect(() => {
     getEvents();
   }, []);
+ 
+  
 
   return (
     //TODO: This code should be factored out into multiple files
@@ -52,39 +57,37 @@ function App() {
         {/* TODO: This button does nothing!  */}
         <button 
           type="button"
-          onClick={() => setCurrentImageIndex((prevImage) => (currentImageIndex - 1))}
+          onClick={() => setCurrentImageIndex((prevImage) => (currentImageIndex === 0 ? currentImageIndex : currentImageIndex - 1))}
           >
             Previous Image
             </button>
         <div>
           <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
+            className="text-bar"
           >
-            <div> {images.length} total images </div>
+            <div> Total Images: {images.length} </div>
             <div> Index: {currentImageIndex} </div>
           </div>
-          {images.length > 0 && <img src={images[currentImageIndex].jpg} />}
+          {images.length > 0 && <img alt={images[currentImageIndex].blobContainer} src={images[currentImageIndex].jpg} />}
           {images[currentImageIndex]?.createdOn && (
-            <div> Scan Timestamp: {images[currentImageIndex].createdOn} </div>
+            <div className="text-bar"> Scan Timestamp: {images[currentImageIndex].createdOn} </div>
           )}
           {/* TODO: Finish adding image metadata!  */}
-          <div> Image Metadata: INCOMPLETE </div>
-          <div> Number of Detections: INCOMPLETE </div>
+        <div> Image Metadata: INCOMPLETE </div>
+          <div> Confidence Levels: {images[currentImageIndex]?.overallConf} </div>
+          <div> Number of Detections: {images[currentImageIndex]?.detectionsList.length} </div>
+          <div> Noise Floor Metric: {images[currentImageIndex]?.noiseFloorMetric} </div>
         </div>
         {/* TODO: This button also does nothing  */}
         <button 
           type="button"
-          onClick={() => setCurrentImageIndex((prevImage) => (currentImageIndex + 1))}
-        >
+          onClick={() => setCurrentImageIndex((prevImage) => (currentImageIndex + 1))}>
           Next Image
           </button>
       </div>
     </div>
   );
+            
 }
 
 export default App;
