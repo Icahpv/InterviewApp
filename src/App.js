@@ -50,7 +50,12 @@ function App() {
         }}
       >
         {/* TODO: This button does nothing!  */}
-        <button type="button">Previous Image</button>
+        <button 
+          type="button"
+          onClick={() => setCurrentImageIndex((prevImage) => (currentImageIndex - 1))}
+          >
+            Previous Image
+            </button>
         <div>
           <div
             style={{
@@ -71,7 +76,12 @@ function App() {
           <div> Number of Detections: INCOMPLETE </div>
         </div>
         {/* TODO: This button also does nothing  */}
-        <button type="button">Next Image</button>
+        <button 
+          type="button"
+          onClick={() => setCurrentImageIndex((prevImage) => (currentImageIndex + 1))}
+        >
+          Next Image
+          </button>
       </div>
     </div>
   );
